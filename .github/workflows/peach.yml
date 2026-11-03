@@ -15,3 +15,5 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: sootbean/soot-preview-action@v1
+        env:
+          CONTRAST_AGENT_BUDGET_SECONDS: 45
