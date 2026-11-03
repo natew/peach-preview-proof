@@ -16,6 +16,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: sootbean/soot-preview-action@v1
         with:
+          package-manager: bun
+          install: bun install
           start: npx expo start --port 8081
           port: 8081
           origin: https://peachsim.com
