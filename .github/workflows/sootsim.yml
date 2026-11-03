@@ -5,15 +5,17 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
   actions: read
+  pull-requests: write
 
 jobs:
   preview:
+    if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
-    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: sootbean/soot-preview-action@v1
-        env:
-          CONTRAST_AGENT_BUDGET_SECONDS: 45
+        with:
+          start: npx expo start --port 8081
+          port: 8081
+          origin: https://peachsim.com
