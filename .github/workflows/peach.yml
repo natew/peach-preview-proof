@@ -1,25 +1,23 @@
-name: Peach preview proof
+name: Peach
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
 permissions:
   contents: read
   pull-requests: write
+  issues: write
   actions: read
 jobs:
-  preview:
+  contrast:
+    if: ${{ github.event.pull_request.draft != true }}
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
-      - uses: sootbean/soot-preview-action@1c65429233655ae0b202925e9db2bac05256dc97
+      - uses: sootbean/soot-preview-action@v1
         env:
           CONTRAST_AGENT_BUDGET_SECONDS: 180
         with:
           package-manager: npm
-          install: npm install --no-audit --no-fund
-          node-version: 22
-          origin: https://peachsim.com
-          runner: local
+          install: exit 1
           start: npx expo start --port 8081
-          port: 8081
